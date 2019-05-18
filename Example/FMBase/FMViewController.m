@@ -7,6 +7,20 @@
 //
 
 #import "FMViewController.h"
+#import "FMLoadable.h"
+#import "UIStyle.h"
+
+@interface FooObject : NSObject
+@end
+@implementation FooObject
++ (void)userDefinedLoad{
+    NSLog(@"FooObject");
+}
+@end
+
+FMLoadableFunctionBegin(FooObject)
+[FooObject userDefinedLoad];
+FMLoadableFunctionEnd(FooObject)
 
 @interface FMViewController ()
 
@@ -17,7 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    [UIStyle style];
 }
 
 - (void)didReceiveMemoryWarning

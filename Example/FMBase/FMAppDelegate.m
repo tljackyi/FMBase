@@ -7,12 +7,12 @@
 //
 
 #import "FMAppDelegate.h"
+#import <FMBase/FMBaseMacrosDef.h>
 
 @implementation FMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     return YES;
 }
 
