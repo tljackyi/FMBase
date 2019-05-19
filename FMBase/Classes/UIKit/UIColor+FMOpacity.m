@@ -9,7 +9,7 @@
 
 @implementation UIColor (FMOpacity)
 
-- (UIColor *)alpha:(CGFloat)alpha {
+- (UIColor *)fm_alpha:(CGFloat)alpha {
     return [self colorWithAlphaComponent: alpha];
 }
 

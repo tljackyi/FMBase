@@ -9,7 +9,7 @@
 
 @implementation NSAttributedString (FMStringWithFormat)
 
-+ (NSMutableAttributedString*)stringWithFormat:(NSAttributedString*)format, ...{
++ (NSMutableAttributedString*)fm_stringWithFormat:(NSAttributedString*)format, ...{
     va_list args;
     va_start(args, format);
     

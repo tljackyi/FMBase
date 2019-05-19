@@ -9,14 +9,14 @@
 
 @implementation UIImage (FMColored)
 
-+ (UIImage*)clearImageWithSize:(CGSize)size {
++ (UIImage*)fm_clearImageWithSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     UIImage *newimage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newimage;
 }
 
-+ (UIImage*)coloredImage:(UIColor*)color withSize:(CGSize)size {
++ (UIImage*)fm_coloredImage:(UIColor*)color withSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -28,7 +28,7 @@
     return image;
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color
++ (UIImage *)fm_imageWithColor:(UIColor *)color
                        size:(CGSize)aSize
                cornerRadius:(float)cornerRadius {
     CGRect rect = CGRectMake(0, 0, aSize.width, aSize.height);
@@ -42,7 +42,7 @@
     return [image resizableImageWithCapInsets:UIEdgeInsetsMake(cornerRadius, cornerRadius, cornerRadius, cornerRadius)];
 }
 
-+ (UIImage *)gradientImageWithStartColor:(UIColor *)startColor endColor:(UIColor *)endColor boundsSize:(CGSize)size startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint{
++ (UIImage *)fm_gradientImageWithStartColor:(UIColor *)startColor endColor:(UIColor *)endColor boundsSize:(CGSize)size startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint{
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGFloat locations[] = { 0.0, 1.0 };
     

@@ -25,7 +25,7 @@
     objc_setAssociatedObject(self, @selector(scr_ranges), scr_ranges, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (NSMutableAttributedString *(^)(NSString *string))build{
++ (NSMutableAttributedString *(^)(NSString *string))fm_build{
     return ^(NSString *string){
         NSRange range = NSMakeRange(0, string.length);
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
@@ -34,7 +34,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(NSString *))append {
+- (NSMutableAttributedString *(^)(NSString *))fm_append {
     return ^(NSString *string) {
         NSRange range = NSMakeRange(self.length, string.length);
         [self appendAttributedString:[[NSAttributedString alloc] initWithString:string]];
@@ -43,7 +43,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(NSAttributedString *))attributedAppend {
+- (NSMutableAttributedString *(^)(NSAttributedString *))fm_attributedAppend {
     return ^(NSAttributedString *attributedString) {
         NSRange range = NSMakeRange(self.length, attributedString.string.length);
         [self appendAttributedString:attributedString];
@@ -52,7 +52,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(NSString *, NSUInteger index))insert {
+- (NSMutableAttributedString *(^)(NSString *, NSUInteger index))fm_insert {
     return ^(NSString *string, NSUInteger index) {
         if (index > self.length) {
             return self;
@@ -65,7 +65,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat))appendSpacing {
+- (NSMutableAttributedString *(^)(CGFloat))fm_appendSpacing {
     return ^(CGFloat spacing) {
         if (spacing <= 0) {
             return self;
@@ -84,7 +84,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat spacing))headSpacing {
+- (NSMutableAttributedString *(^)(CGFloat spacing))fm_headSpacing {
     return ^(CGFloat spacing) {
         if (spacing <= 0) {
             return self;
@@ -111,13 +111,13 @@
 }
 
 // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
-- (NSMutableAttributedString *(^)(UIImage *))appendImage {
+- (NSMutableAttributedString *(^)(UIImage *))fm_appendImage {
     return ^(UIImage *image) {
-        return self.appendSizeImage(image, image.size);
+        return self.fm_appendSizeImage(image, image.size);
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *, CGSize))appendSizeImage {
+- (NSMutableAttributedString *(^)(UIImage *, CGSize))fm_appendSizeImage {
     return ^(UIImage *image, CGSize imageSize) {
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
             NSRange range = [self.scr_ranges[index] rangeValue];
@@ -135,7 +135,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *, CGSize, NSUInteger, UIFont *))insertImage {
+- (NSMutableAttributedString *(^)(UIImage *, CGSize, NSUInteger, UIFont *))fm_insertImage {
     return ^(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font) {
         CGFloat offset =  roundf(font.descender - imageSize.height / 2 + font.descender + font.capHeight + 2);
         NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
@@ -154,13 +154,13 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, UIFont *font))headInsertImage {
+- (NSMutableAttributedString *(^)(UIImage *image, UIFont *font))fm_headInsertImage {
     return ^(UIImage *image, UIFont *font){
-        return  self.headInsertSizeImage(image, image.size, font);
+        return  self.fm_headInsertSizeImage(image, image.size, font);
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))headInsertSizeImage {
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))fm_headInsertSizeImage {
     return ^(UIImage *image, CGSize imageSize, UIFont *font) {
         NSMutableArray *ranges = [NSMutableArray array];
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
@@ -180,13 +180,13 @@
 }
 
 #pragma mark - YYTextAttachment
-- (NSMutableAttributedString *(^)(UIImage *image))yyappendImage {
+- (NSMutableAttributedString *(^)(UIImage *image))fm_yyappendImage {
     return ^(UIImage *image) {
-        return self.yyappendSizeImage(image, image.size);
+        return self.fm_yyappendSizeImage(image, image.size);
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize))yyappendSizeImage {
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize))fm_yyappendSizeImage {
     return ^(UIImage *image, CGSize imageSize){
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
             NSRange range = [self.scr_ranges[index] rangeValue];
@@ -200,7 +200,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font))yyinsertImage{
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font))fm_yyinsertImage{
     return ^(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font) {
         NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
         [self insertAttributedString:attachmentAttributedString
@@ -216,13 +216,13 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, UIFont *font))yyheadInsertImage{
+- (NSMutableAttributedString *(^)(UIImage *image, UIFont *font))fm_yyheadInsertImage{
     return ^(UIImage *image, UIFont *font){
-        return  self.yyheadInsertSizeImage(image, image.size, font);
+        return  self.fm_yyheadInsertSizeImage(image, image.size, font);
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))yyheadInsertSizeImage{
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))fm_yyheadInsertSizeImage{
     return ^(UIImage *image, CGSize imageSize, UIFont *font) {
         NSMutableArray *ranges = [NSMutableArray array];
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
@@ -239,28 +239,28 @@
 }
 
 #pragma mark - Basic
-- (NSMutableAttributedString *(^)(UIFont *font))font{
+- (NSMutableAttributedString *(^)(UIFont *font))fm_font{
     return ^(UIFont *font){
-        [self addAttribute:NSFontAttributeName value:font];
+        [self fm_addAttribute:NSFontAttributeName value:font];
         return self;
     };
 }
 
-- (NSMutableAttributedString *(^)(UIColor *))color {
+- (NSMutableAttributedString *(^)(UIColor *))fm_color {
     return ^(UIColor *color) {
-        [self addAttribute:NSForegroundColorAttributeName value:color];
+        [self fm_addAttribute:NSForegroundColorAttributeName value:color];
         return self;
     };
 }
 
 #pragma mark - Range
-- (NSMutableAttributedString *)all {
+- (NSMutableAttributedString *)fm_all {
     NSRange range = NSMakeRange(0, self.length);
     self.scr_ranges = @[ [NSValue valueWithRange:range] ];
     return self;
 }
 
-- (NSMutableAttributedString *(^)(NSString *))match {
+- (NSMutableAttributedString *(^)(NSString *))fm_match {
     return ^(NSString *string) {
         if (string.length == 0) {
             self.scr_ranges = @[];
@@ -283,7 +283,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(NSString *))matchFirst {
+- (NSMutableAttributedString *(^)(NSString *))fm_matchFirst {
     return ^(NSString *string) {
         if (string.length == 0) {
             self.scr_ranges = @[];
@@ -297,7 +297,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(NSString *))matchLast {
+- (NSMutableAttributedString *(^)(NSString *))fm_matchLast {
     return ^(NSString *string) {
         if (string.length == 0) {
             self.scr_ranges = @[];
@@ -312,32 +312,32 @@
 }
 
 #pragma mark - Paragraph
-- (NSMutableAttributedString *(^)(NSUnderlineStyle))underlineStyle {
+- (NSMutableAttributedString *(^)(NSUnderlineStyle))fm_underlineStyle {
     return ^(NSUnderlineStyle style) {
-        [self addAttribute:NSUnderlineStyleAttributeName value:@(style)];
+        [self fm_addAttribute:NSUnderlineStyleAttributeName value:@(style)];
         return self;
     };
 }
 
-- (NSMutableAttributedString *(^)(UIColor *))underlineColor {
+- (NSMutableAttributedString *(^)(UIColor *))fm_underlineColor {
     return ^(UIColor * color) {
-        [self addAttribute:NSUnderlineColorAttributeName value:color];
+        [self fm_addAttribute:NSUnderlineColorAttributeName value:color];
         return self;
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat))lineSpacing {
+- (NSMutableAttributedString *(^)(CGFloat))fm_lineSpacing {
     return ^(CGFloat lineSpacing) {
-        [self configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
+        [self fm_configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
             paragraphStyle.lineSpacing = lineSpacing;
         }];
         return self;
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat))lineHeight {
+- (NSMutableAttributedString *(^)(CGFloat))fm_lineHeight {
     return ^(CGFloat lineHeight) {
-        [self configParagraphStyle:^(NSMutableParagraphStyle *style) {
+        [self fm_configParagraphStyle:^(NSMutableParagraphStyle *style) {
             style.minimumLineHeight = lineHeight;
             style.maximumLineHeight = lineHeight;
         }];
@@ -355,9 +355,9 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat))yylineHeight {
+- (NSMutableAttributedString *(^)(CGFloat))fm_yylineHeight {
     return ^(CGFloat lineHeight) {
-        [self configParagraphStyle:^(NSMutableParagraphStyle *style) {
+        [self fm_configParagraphStyle:^(NSMutableParagraphStyle *style) {
             style.minimumLineHeight = lineHeight;
             style.maximumLineHeight = lineHeight;
         }];
@@ -365,18 +365,18 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(CGFloat))paragraphSpacing {
+- (NSMutableAttributedString *(^)(CGFloat))fm_paragraphSpacing {
     return ^(CGFloat paragraphSpacing) {
-        [self configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
+        [self fm_configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
             paragraphStyle.paragraphSpacing = paragraphSpacing;
         }];
         return self;
     };
 }
 
-- (NSMutableAttributedString *(^)(NSTextAlignment))alignment {
+- (NSMutableAttributedString *(^)(NSTextAlignment))fm_alignment {
     return ^(NSTextAlignment alignment) {
-        [self configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
+        [self fm_configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
             paragraphStyle.alignment = alignment;
         }];
         return self;
@@ -385,14 +385,14 @@
 
 
 #pragma mark - Private
-- (void)addAttribute:(NSAttributedStringKey)name value:(id)value {
+- (void)fm_addAttribute:(NSAttributedStringKey)name value:(id)value {
     for (NSValue *rangeValue in self.scr_ranges) {
         NSRange range = [rangeValue rangeValue];
         [self addAttribute:name value:value range:range];
     }
 }
 
-- (void)configParagraphStyle:(void (^)(NSMutableParagraphStyle *style))block {
+- (void)fm_configParagraphStyle:(void (^)(NSMutableParagraphStyle *style))block {
     for (NSValue *value in self.scr_ranges) {
         NSRange range = [value rangeValue];
         NSInteger index = range.location + range.length - 1;
@@ -404,5 +404,6 @@
         [self addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
     }
 }
+
 
 @end

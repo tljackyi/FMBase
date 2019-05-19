@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSAttributedString (FMStringWithFormat)
 
 // [attributedString stringWithFormat:attrFormat, attrArg1, attrArg2, NULL]
-+ (NSMutableAttributedString*)stringWithFormat:(NSAttributedString*)format, ...;
++ (NSMutableAttributedString*)fm_stringWithFormat:(NSAttributedString*)format, ...;
 
 @end
 

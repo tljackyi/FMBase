@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (FMMethodSwizzle)
 
-+ (void)classSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector;
++ (void)fm_classSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector;
 
-+ (void)instancenSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector;
++ (void)fm_instancenSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector;
 
 @end
 

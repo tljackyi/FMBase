@@ -11,15 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (FMColored)
 
-+ (UIImage*)clearImageWithSize:(CGSize)size;
++ (UIImage*)fm_clearImageWithSize:(CGSize)size;
 
-+ (UIImage*)coloredImage:(UIColor*)color withSize:(CGSize)size;
++ (UIImage*)fm_coloredImage:(UIColor*)color withSize:(CGSize)size;
 
-+ (UIImage *)imageWithColor:(UIColor *)color
++ (UIImage *)fm_imageWithColor:(UIColor *)color
                        size:(CGSize)aSize
                cornerRadius:(float)cornerRadius;
 
-+ (UIImage *)gradientImageWithStartColor:(UIColor *)startColor
++ (UIImage *)fm_gradientImageWithStartColor:(UIColor *)startColor
                                 endColor:(UIColor *)endColor
                               boundsSize:(CGSize)size
                               startPoint:(CGPoint)startPoint

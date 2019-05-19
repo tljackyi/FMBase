@@ -10,8 +10,8 @@
 
 @implementation NSString (FMAttributedStringBuilder)
 
-- (NSMutableAttributedString *)attributedBuild {
-    return NSMutableAttributedString.build(self);
+- (NSMutableAttributedString *)fm_attributedBuild {
+    return NSMutableAttributedString.fm_build(self);
 }
 
 @end

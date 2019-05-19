@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (FMOpacity)
 
-- (UIColor *)alpha:(CGFloat)alpha;
+- (UIColor *)fm_alpha:(CGFloat)alpha;
 
 @end
 

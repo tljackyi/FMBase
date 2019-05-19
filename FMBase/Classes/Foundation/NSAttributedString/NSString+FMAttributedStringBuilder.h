@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (FMAttributedStringBuilder)
 
 // 生成 Attributed String
-- (NSMutableAttributedString *)attributedBuild;
+- (NSMutableAttributedString *)fm_attributedBuild;
 
 @end
 

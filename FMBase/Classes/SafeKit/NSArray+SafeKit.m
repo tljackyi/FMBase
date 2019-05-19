@@ -12,79 +12,83 @@
 @implementation NSArray (SafeKit)
 
 + (void)load{
-    SEL getObjectsRangeSEL = @selector(getObjects:range:);
-    SEL objectsAtIndexSEL = @selector(objectAtIndex:);
+    SEL getObjectsRangeSEL = @selector(fm_getObjects:range:);
+    SEL objectsAtIndexSEL = @selector(fm_objectAtIndex:);
     
     Class arrayClass = NSClassFromString(@"NSArray");
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(arrayByAddingObject:) swizzleSelector:@selector(arrayByAddingObject:)];
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(indexOfObject:inRange:) swizzleSelector:@selector(indexOfObject:inRange:)];
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(getObjectsForSuperClass:range:)]; ///< 这里要注意不能把父类的方法给替换了，否则会影响到所有子类
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(indexOfObjectIdenticalTo:inRange:) swizzleSelector:@selector(indexOfObjectIdenticalTo:inRange:)];
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(subarrayWithRange:) swizzleSelector:@selector(subarrayWithRange:)];
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(objectsAtIndexes:) swizzleSelector:@selector(objectsAtIndexes:)];
-    [self instancenSwizzleWithClass:arrayClass originSelector:@selector(writeToURL:error:) swizzleSelector:@selector(writeToURL:error:)]; ///< for NSData
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(arrayByAddingObject:) swizzleSelector:@selector(fm_arrayByAddingObject:)];
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(indexOfObject:inRange:) swizzleSelector:@selector(fm_indexOfObject:inRange:)];
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(fm_getObjectsForSuperClass:range:)]; ///< 这里要注意不能把父类的方法给替换了，否则会影响到所有子类
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(indexOfObjectIdenticalTo:inRange:) swizzleSelector:@selector(fm_indexOfObjectIdenticalTo:inRange:)];
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(subarrayWithRange:) swizzleSelector:@selector(fm_subarrayWithRange:)];
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(objectsAtIndexes:) swizzleSelector:@selector(fm_objectsAtIndexes:)];
+    [self fm_instancenSwizzleWithClass:arrayClass originSelector:@selector(writeToURL:error:) swizzleSelector:@selector(fm_writeToURL:error:)]; ///< for NSData
     
-
+    
+    
     Class originClass = NSClassFromString(@"__NSArrayI");
-    [self instancenSwizzleWithClass:originClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(objectAtIndexedSubscript:)];
-    [self instancenSwizzleWithClass:originClass originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
-    [self instancenSwizzleWithClass:originClass originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
-
-
+    [self fm_instancenSwizzleWithClass:originClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(fm_objectAtIndexedSubscript:)];
+    [self fm_instancenSwizzleWithClass:originClass originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
+    [self fm_instancenSwizzleWithClass:originClass originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
+    
+    
+    
     Class array0Class = NSClassFromString(@"__NSArray0");
-    [self instancenSwizzleWithClass:array0Class originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
-
+    [self fm_instancenSwizzleWithClass:array0Class originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
+    
+    
     
     Class singleClass = NSClassFromString(@"__NSSingleObjectArrayI");
-    [self instancenSwizzleWithClass:singleClass originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
-    [self instancenSwizzleWithClass:singleClass originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
-
-
+    [self fm_instancenSwizzleWithClass:singleClass originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
+    [self fm_instancenSwizzleWithClass:singleClass originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
+    
+    
     Class mutableClass = NSClassFromString(@"NSMutableArray");
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectsAtIndexes:) swizzleSelector:@selector(removeObjectsAtIndexes:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObject:inRange:) swizzleSelector:@selector(removeObject:inRange:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectAtIndex:) swizzleSelector:@selector(removeObjectAtIndex:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectIdenticalTo:inRange:) swizzleSelector:@selector(removeObjectIdenticalTo:inRange:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsInRange:withObjectsFromArray:) swizzleSelector:@selector(replaceObjectsInRange:withObjectsFromArray:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsInRange:withObjectsFromArray:range:) swizzleSelector:@selector(replaceObjectsInRange:withObjectsFromArray:range:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(insertObjects:atIndexes:) swizzleSelector:@selector(insertObjects:atIndexes:)];
-    [self instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsAtIndexes:withObjects:) swizzleSelector:@selector(replaceObjectsAtIndexes:withObjects:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectsAtIndexes:) swizzleSelector:@selector(fm_removeObjectsAtIndexes:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObject:inRange:) swizzleSelector:@selector(fm_removeObject:inRange:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectAtIndex:) swizzleSelector:@selector(fm_removeObjectAtIndex:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(removeObjectIdenticalTo:inRange:) swizzleSelector:@selector(fm_removeObjectIdenticalTo:inRange:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsInRange:withObjectsFromArray:) swizzleSelector:@selector(fm_replaceObjectsInRange:withObjectsFromArray:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsInRange:withObjectsFromArray:range:) swizzleSelector:@selector(fm_replaceObjectsInRange:withObjectsFromArray:range:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(insertObjects:atIndexes:) swizzleSelector:@selector(fm_insertObjects:atIndexes:)];
+    [self fm_instancenSwizzleWithClass:mutableClass originSelector:@selector(replaceObjectsAtIndexes:withObjects:) swizzleSelector:@selector(fm_replaceObjectsAtIndexes:withObjects:)];
     
     
     
     Class classM = NSClassFromString(@"__NSArrayM");
-    [self instancenSwizzleWithClass:classM originSelector:@selector(insertObject:atIndex:) swizzleSelector:@selector(insertObject:atIndex:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(removeObjectsInRange:) swizzleSelector:@selector(removeObjectsInRange:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(replaceObjectAtIndex:withObject:) swizzleSelector:@selector(replaceObjectAtIndex:withObject:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(exchangeObjectAtIndex:withObjectAtIndex:) swizzleSelector:@selector(exchangeObjectAtIndex:withObjectAtIndex:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(setObject:atIndexedSubscript:) swizzleSelector:@selector(setObject:atIndexedSubscript:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(objectAtIndexedSubscriptArrayM:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(insertObject:atIndex:) swizzleSelector:@selector(fm_insertObject:atIndex:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(removeObjectsInRange:) swizzleSelector:@selector(fm_removeObjectsInRange:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(replaceObjectAtIndex:withObject:) swizzleSelector:@selector(fm_replaceObjectAtIndex:withObject:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(exchangeObjectAtIndex:withObjectAtIndex:) swizzleSelector:@selector(fm_exchangeObjectAtIndex:withObjectAtIndex:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(setObject:atIndexedSubscript:) swizzleSelector:@selector(fm_setObject:atIndexedSubscript:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(fm_objectAtIndexedSubscriptArrayM:)];
     ///< 据说低于11.0交换此方法会导致有键盘显示的地方，此时退到后台会crash? [UIKeyboardLayoutStar release]: message sent to deallocated instance
-    [self instancenSwizzleWithClass:classM originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(removeObjectAtIndex:) swizzleSelector:@selector(removeObjectAtIndexArrayM:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(objectAtIndex:) swizzleSelector:objectsAtIndexSEL];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(getObjects:range:) swizzleSelector:getObjectsRangeSEL];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(removeObjectAtIndex:) swizzleSelector:@selector(fm_removeObjectAtIndexArrayM:)];
     
     
     Class placeHolderClass = NSClassFromString(@"__NSPlaceholderArray");
-    [self instancenSwizzleWithClass:placeHolderClass originSelector:@selector(initWithObjects:count:) swizzleSelector:@selector(initWithObjects:count:)];
+    [self fm_instancenSwizzleWithClass:placeHolderClass originSelector:@selector(initWithObjects:count:) swizzleSelector:@selector(fm_initWithObjects:count:)];
     
     
     Class transferClass = NSClassFromString(@"__NSArrayI_Transfer");
-    [self instancenSwizzleWithClass:transferClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(objectAtIndex:)];
-    [self instancenSwizzleWithClass:transferClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(getObjects:range:)];
-    [self instancenSwizzleWithClass:transferClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(objectAtIndexedSubscript:)];
+    [self fm_instancenSwizzleWithClass:transferClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(fm_objectAtIndex:)];
+    [self fm_instancenSwizzleWithClass:transferClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(fm_getObjects:range:)];
+    [self fm_instancenSwizzleWithClass:transferClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(fm_objectAtIndexedSubscript:)];
     
     
     Class frozenClass = NSClassFromString(@"__NSFrozenArrayM");
-    [self instancenSwizzleWithClass:frozenClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(objectAtIndex:)];
-    [self instancenSwizzleWithClass:frozenClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(getObjects:range:)];
-    [self instancenSwizzleWithClass:frozenClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(objectAtIndexedSubscript:)];
+    [self fm_instancenSwizzleWithClass:frozenClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(fm_objectAtIndex:)];
+    [self fm_instancenSwizzleWithClass:frozenClass originSelector:@selector(getObjects:range:) swizzleSelector:@selector(fm_getObjects:range:)];
+    [self fm_instancenSwizzleWithClass:frozenClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(fm_objectAtIndexedSubscript:)];
     
     
     Class reverseClass = NSClassFromString(@"__NSArrayReversed");
-    [self instancenSwizzleWithClass:reverseClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(objectAtIndex:)];
-    [self instancenSwizzleWithClass:reverseClass originSelector:@selector(subarrayWithRange:) swizzleSelector:@selector(subarrayWithRange:)];
-    [self instancenSwizzleWithClass:reverseClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(objectAtIndexedSubscript:)];
+    [self fm_instancenSwizzleWithClass:reverseClass originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(fm_objectAtIndex:)];
+    [self fm_instancenSwizzleWithClass:reverseClass originSelector:@selector(subarrayWithRange:) swizzleSelector:@selector(fm_subarrayWithRange:)];
+    [self fm_instancenSwizzleWithClass:reverseClass originSelector:@selector(objectAtIndexedSubscript:) swizzleSelector:@selector(fm_objectAtIndexedSubscript:)];
+    
     
     /*
      addObject:
@@ -97,11 +101,11 @@
      objectAtIndexedSubscript:
      //    这个是系统内部用到的，hook后会崩溃on ios11
      Class classCFArray__ = NSClassFromString(@"__NSCFArray");
-     [self instancenSwizzleWithClass:classCFArray__ originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(objectAtIndex:)];
+     [self fm_instancenSwizzleWithClass:classCFArray__ originSelector:@selector(objectAtIndex:) swizzleSelector:@selector(fm_objectAtIndex:)];
      */
 }
 
-- (BOOL)writeToURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)error
+- (BOOL)fm_writeToURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)error
 {
     if (!url) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], url can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
@@ -109,13 +113,13 @@
         return NO;
     }
     
-    return [self writeToURL:url error:error];
+    return [self fm_writeToURL:url error:error];
 }
 
-- (id)objectAtIndexedSubscript:(NSUInteger)index
+- (id)fm_objectAtIndexedSubscript:(NSUInteger)index
 {
     if (index < self.count) {
-        return [self objectAtIndexedSubscript:index];
+        return [self fm_objectAtIndexedSubscript:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -124,10 +128,10 @@
     return nil;
 }
 
-- (id)objectAtIndexedSubscriptArrayM:(NSUInteger)index
+- (id)fm_objectAtIndexedSubscriptArrayM:(NSUInteger)index
 {
     if (index < self.count) {
-        return [self objectAtIndexedSubscriptArrayM:index];
+        return [self fm_objectAtIndexedSubscriptArrayM:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -136,10 +140,10 @@
     return nil;
 }
 
-- (id)objectAtIndex:(NSUInteger)index
+- (id)fm_objectAtIndex:(NSUInteger)index
 {
     if (index < self.count) {
-        return [self objectAtIndex:index];
+        return [self fm_objectAtIndex:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -148,7 +152,7 @@
     return nil;
 }
 
-- (instancetype)initWithObjects:(const id _Nonnull [_Nullable])objects count:(NSUInteger)cnt
+- (instancetype)fm_initWithObjects:(const id _Nonnull [_Nullable])objects count:(NSUInteger)cnt
 {
     NSUInteger realCount = 0;
     id  _Nonnull __unsafe_unretained realObjects[cnt];
@@ -169,13 +173,13 @@
         }
     }
     
-    return [self initWithObjects:realObjects count:realCount];
+    return [self fm_initWithObjects:realObjects count:realCount];
 }
 
-- (NSArray *)arrayByAddingObject:(id)anObject
+- (NSArray *)fm_arrayByAddingObject:(id)anObject
 {
     if (anObject) {
-        return [self arrayByAddingObject:anObject];
+        return [self fm_arrayByAddingObject:anObject];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], object can not be nil", NSStringFromClass([self class]),NSStringFromSelector(_cmd)];
@@ -184,10 +188,10 @@
 }
 
 ///< 给除了NSArray之外的子类用
-- (void)getObjects:(id _Nonnull __unsafe_unretained [_Nonnull])objects range:(NSRange)range
+- (void)fm_getObjects:(id _Nonnull __unsafe_unretained [_Nonnull])objects range:(NSRange)range
 {
     if (range.location + range.length <= self.count) {
-        return [self getObjects:objects range:range];
+        return [self fm_getObjects:objects range:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -196,10 +200,10 @@
 }
 
 ///< 给NSArray用
-- (void)getObjectsForSuperClass:(id _Nonnull __unsafe_unretained [_Nonnull])objects range:(NSRange)range
+- (void)fm_getObjectsForSuperClass:(id _Nonnull __unsafe_unretained [_Nonnull])objects range:(NSRange)range
 {
     if (range.location + range.length <= self.count) {
-        return [self getObjectsForSuperClass:objects range:range];
+        return [self fm_getObjectsForSuperClass:objects range:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -207,22 +211,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (NSUInteger)indexOfObject:(id)anObject inRange:(NSRange)range
+- (NSUInteger)fm_indexOfObject:(id)anObject inRange:(NSRange)range
 {
     if (range.location + range.length <= self.count) {
-        return [self indexOfObject:anObject inRange:range];
-    }
-    
-    long count = self.count > 0 ? self.count - 1 : self.count;
-    NSString *msg = [NSString stringWithFormat:@"+[%@ %@], range %@ is out of bounds 0...%ld", NSStringFromClass([self class]),NSStringFromSelector(_cmd), NSStringFromRange(range), count];
-    [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
-    return 0;
-}
-
-- (NSUInteger)indexOfObjectIdenticalTo:(id)anObject inRange:(NSRange)range
-{
-    if (range.location + range.length <= self.count) {
-        return [self indexOfObjectIdenticalTo:anObject inRange:range];
+        return [self fm_indexOfObject:anObject inRange:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -231,10 +223,22 @@
     return 0;
 }
 
-- (NSArray *)subarrayWithRange:(NSRange)range
+- (NSUInteger)fm_indexOfObjectIdenticalTo:(id)anObject inRange:(NSRange)range
 {
     if (range.location + range.length <= self.count) {
-        return [self subarrayWithRange:range];
+        return [self fm_indexOfObjectIdenticalTo:anObject inRange:range];
+    }
+    
+    long count = self.count > 0 ? self.count - 1 : self.count;
+    NSString *msg = [NSString stringWithFormat:@"+[%@ %@], range %@ is out of bounds 0...%ld", NSStringFromClass([self class]),NSStringFromSelector(_cmd), NSStringFromRange(range), count];
+    [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
+    return 0;
+}
+
+- (NSArray *)fm_subarrayWithRange:(NSRange)range
+{
+    if (range.location + range.length <= self.count) {
+        return [self fm_subarrayWithRange:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -243,7 +247,7 @@
     return nil;
 }
 
-- (NSArray *)objectsAtIndexes:(NSIndexSet *)indexes
+- (NSArray *)fm_objectsAtIndexes:(NSIndexSet *)indexes
 {
     if (!indexes) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], NSIndexset can not be nil", NSStringFromClass([self class]),NSStringFromSelector(_cmd)];
@@ -266,13 +270,13 @@
         return nil;
     }
     
-    return [self objectsAtIndexes:indexes];
+    return [self fm_objectsAtIndexes:indexes];
 }
 
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)index
+- (void)fm_insertObject:(id)anObject atIndex:(NSUInteger)index
 {
     if (anObject && index <= self.count) {
-        return [self insertObject:anObject atIndex:index];
+        return [self fm_insertObject:anObject atIndex:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -280,10 +284,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)removeObjectsInRange:(NSRange)range
+- (void)fm_removeObjectsInRange:(NSRange)range
 {
     if (range.location + range.length <= self.count) {
-        return [self removeObjectsInRange:range];
+        return [self fm_removeObjectsInRange:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -291,7 +295,7 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)removeObjectsAtIndexes:(NSIndexSet *)indexes
+- (void)fm_removeObjectsAtIndexes:(NSIndexSet *)indexes
 {
     if (!indexes) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], NSIndexset can not be nil", NSStringFromClass([self class]),NSStringFromSelector(_cmd)];
@@ -314,13 +318,13 @@
         return;
     }
     
-    return [self removeObjectsAtIndexes:indexes];
+    return [self fm_removeObjectsAtIndexes:indexes];
 }
 
-- (void)removeObject:(id)anObject inRange:(NSRange)range
+- (void)fm_removeObject:(id)anObject inRange:(NSRange)range
 {
     if (anObject && range.location + range.length <= self.count) {
-        return [self removeObject:anObject inRange:range];
+        return [self fm_removeObject:anObject inRange:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -328,10 +332,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)index
+- (void)fm_removeObjectAtIndex:(NSUInteger)index
 {
     if (index < self.count) {
-        return [self removeObjectAtIndex:index];
+        return [self fm_removeObjectAtIndex:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -339,10 +343,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)removeObjectAtIndexArrayM:(NSUInteger)index
+- (void)fm_removeObjectAtIndexArrayM:(NSUInteger)index
 {
     if (index < self.count) {
-        return [self removeObjectAtIndexArrayM:index];
+        return [self fm_removeObjectAtIndexArrayM:index];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -350,10 +354,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
+- (void)fm_replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
 {
     if (anObject && index < self.count) {
-        return [self replaceObjectAtIndex:index withObject:anObject];
+        return [self fm_replaceObjectAtIndex:index withObject:anObject];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -361,10 +365,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2
+- (void)fm_exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2
 {
     if (idx1 < self.count && idx2 < self.count) {
-        return [self exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
+        return [self fm_exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -372,10 +376,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range
+- (void)fm_removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range
 {
     if (anObject && range.location + range.length <= self.count) {
-        return [self removeObjectIdenticalTo:anObject inRange:range];
+        return [self fm_removeObjectIdenticalTo:anObject inRange:range];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -383,11 +387,11 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx
+- (void)fm_setObject:(id)obj atIndexedSubscript:(NSUInteger)idx
 {
     ///< idx can equal self.count here, it will add to the last of array when equal.
     if (obj && idx <= self.count) {
-        return [self setObject:obj atIndexedSubscript:idx];
+        return [self fm_setObject:obj atIndexedSubscript:idx];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -395,10 +399,10 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray *)otherArray
+- (void)fm_replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray *)otherArray
 {
     if (range.location + range.length <= self.count) {
-        return [self replaceObjectsInRange:range withObjectsFromArray:otherArray];
+        return [self fm_replaceObjectsInRange:range withObjectsFromArray:otherArray];
     }
     
     long count = self.count > 0 ? self.count - 1 : self.count;
@@ -406,7 +410,7 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray *)otherArray range:(NSRange)otherRange
+- (void)fm_replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray *)otherArray range:(NSRange)otherRange
 {
     if (!otherArray) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], otherArray can not be nil", NSStringFromClass([self class]),NSStringFromSelector(_cmd)];
@@ -416,7 +420,7 @@
     
     if (range.location + range.length <= self.count) {
         if (otherRange.location + otherRange.length <= otherArray.count) {
-            return [self replaceObjectsInRange:range withObjectsFromArray:otherArray range:otherRange];
+            return [self fm_replaceObjectsInRange:range withObjectsFromArray:otherArray range:otherRange];
         }
     }
     
@@ -425,7 +429,7 @@
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)insertObjects:(NSArray *)objects atIndexes:(NSIndexSet *)indexes
+- (void)fm_insertObjects:(NSArray *)objects atIndexes:(NSIndexSet *)indexes
 {
     if (!objects || !indexes) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], objects %@ or indexes %@ can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd), objects, indexes];
@@ -455,10 +459,10 @@
         return;
     }
     
-    return [self insertObjects:objects atIndexes:indexes];
+    return [self fm_insertObjects:objects atIndexes:indexes];
 }
 
-- (void)replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray *)objects
+- (void)fm_replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray *)objects
 {
     if (!objects || !indexes) {
         NSString *msg = [NSString stringWithFormat:@"+[%@ %@], objects %@ or indexes %@ can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd), objects, indexes];
@@ -487,7 +491,7 @@
         return;
     }
     
-    return [self replaceObjectsAtIndexes:indexes withObjects:objects];
+    return [self fm_replaceObjectsAtIndexes:indexes withObjects:objects];
 }
 
 @end

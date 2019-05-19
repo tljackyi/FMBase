@@ -10,7 +10,7 @@
 
 @implementation NSObject (FMMethodSwizzle)
 
-+ (void)classSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector
++ (void)fm_classSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector
 {
     Class realClass = object_getClass(class);
     Method originMethod = class_getClassMethod(realClass, originSelector);
@@ -33,7 +33,7 @@
     method_exchangeImplementations(originMethod2, swizzleMethod2);
 }
 
-+ (void)instancenSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector
++ (void)fm_instancenSwizzleWithClass:(Class)class originSelector:(SEL)originSelector swizzleSelector:(SEL)swizzleSelector
 {
     Method originMethod = class_getInstanceMethod(class, originSelector);
     Method swizzleMethod = class_getInstanceMethod(class, swizzleSelector);

@@ -13,24 +13,25 @@
 
 + (void)load{
     Class placeHolderClass = NSClassFromString(@"__NSPlaceholderDictionary");
-    [self instancenSwizzleWithClass:placeHolderClass originSelector:@selector(initWithObjects:forKeys:count:) swizzleSelector:@selector(initWithObjects:forKeys:count:)];
+    [self fm_instancenSwizzleWithClass:placeHolderClass originSelector:@selector(initWithObjects:forKeys:count:) swizzleSelector:@selector(fm_initWithObjects:forKeys:count:)];
     
     Class originClass = NSClassFromString(@"NSDictionary");
-    [self instancenSwizzleWithClass:originClass originSelector:@selector(writeToURL:error:) swizzleSelector:@selector(writeToURL:error:)];
-    [self instancenSwizzleWithClass:originClass originSelector:@selector(initWithObjects:forKeys:) swizzleSelector:@selector(initWithObjects:forKeys:)];
-    [self classSwizzleWithClass:originClass originSelector:@selector(sharedKeySetForKeys:) swizzleSelector:@selector(sharedKeySetForKeys:)];
+    [self fm_instancenSwizzleWithClass:originClass originSelector:@selector(writeToURL:error:) swizzleSelector:@selector(fm_writeToURL:error:)];
+    [self fm_instancenSwizzleWithClass:originClass originSelector:@selector(initWithObjects:forKeys:) swizzleSelector:@selector(fm_initWithObjects:forKeys:)];
+    [self fm_classSwizzleWithClass:originClass originSelector:@selector(sharedKeySetForKeys:) swizzleSelector:@selector(fm_sharedKeySetForKeys:)];
     
     Class mutableClass = NSClassFromString(@"NSMutableDictionary");
-    [self classSwizzleWithClass:mutableClass originSelector:@selector(sharedKeySetForKeys:) swizzleSelector:@selector(mutable_sharedKeySetForKeys:)];
-    [self classSwizzleWithClass:mutableClass originSelector:@selector(dictionaryWithSharedKeySet:) swizzleSelector:@selector(dictionaryWithSharedKeySet:)];
+    [self fm_classSwizzleWithClass:mutableClass originSelector:@selector(sharedKeySetForKeys:) swizzleSelector:@selector(mutable_sharedKeySetForKeys:)];
+    [self fm_classSwizzleWithClass:mutableClass originSelector:@selector(dictionaryWithSharedKeySet:) swizzleSelector:@selector(fm_dictionaryWithSharedKeySet:)];
     
     Class classM = NSClassFromString(@"__NSDictionaryM");
-    [self instancenSwizzleWithClass:classM originSelector:@selector(removeObjectForKey:) swizzleSelector:@selector(removeObjectForKey:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(setObject:forKey:) swizzleSelector:@selector(setObject:forKey:)];
-    [self instancenSwizzleWithClass:classM originSelector:@selector(setObject:forKeyedSubscript:) swizzleSelector:@selector(setObject:forKeyedSubscript:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(removeObjectForKey:) swizzleSelector:@selector(fm_removeObjectForKey:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(setObject:forKey:) swizzleSelector:@selector(fm_setObject:forKey:)];
+    [self fm_instancenSwizzleWithClass:classM originSelector:@selector(setObject:forKeyedSubscript:) swizzleSelector:@selector(fm_setObject:forKeyedSubscript:)];
+
 }
 
-- (instancetype)initWithObjects:(id  _Nonnull const [])objects forKeys:(id<NSCopying>  _Nonnull const [])keys count:(NSUInteger)cnt
+- (instancetype)fm_initWithObjects:(id  _Nonnull const [])objects forKeys:(id<NSCopying>  _Nonnull const [])keys count:(NSUInteger)cnt
 {
     NSUInteger realCount = 0;
     id realObjects[cnt];
@@ -52,13 +53,13 @@
         }
     }
     
-    return [self initWithObjects:realObjects forKeys:realKeys count:realCount];
+    return [self fm_initWithObjects:realObjects forKeys:realKeys count:realCount];
 }
 
-- (instancetype)initWithObjects:(NSArray *)objects forKeys:(NSArray<id<NSCopying>> *)keys
+- (instancetype)fm_initWithObjects:(NSArray *)objects forKeys:(NSArray<id<NSCopying>> *)keys
 {
     if (objects.count == keys.count) {
-        return [self initWithObjects:objects forKeys:keys];
+        return [self fm_initWithObjects:objects forKeys:keys];
     }
     
     
@@ -67,10 +68,10 @@
     return nil;
 }
 
-- (BOOL)writeToURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)error
+- (BOOL)fm_writeToURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)error
 {
     if (url) {
-        return [self writeToURL:url error:error];
+        return [self fm_writeToURL:url error:error];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], url can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
@@ -79,10 +80,10 @@
     return NO;
 }
 
-+ (id)sharedKeySetForKeys:(NSArray<id<NSCopying>> *)keys
++ (id)fm_sharedKeySetForKeys:(NSArray<id<NSCopying>> *)keys
 {
     if (keys) {
-        return [self sharedKeySetForKeys:keys];
+        return [self fm_sharedKeySetForKeys:keys];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], keys can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
@@ -102,45 +103,44 @@
     return [self mutable_sharedKeySetForKeys:keys];
 }
 
-- (void)removeObjectForKey:(id)aKey
+- (void)fm_removeObjectForKey:(id)aKey
 {
     if (aKey) {
-        return [self removeObjectForKey:aKey];
+        return [self fm_removeObjectForKey:aKey];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], key can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)setObject:(id)anObject forKey:(id)aKey
+- (void)fm_setObject:(id)anObject forKey:(id)aKey
 {
     if (anObject && aKey) {
-        return [self setObject:anObject forKey:aKey];
+        return [self fm_setObject:anObject forKey:aKey];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], key %@ or object %@ can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd), aKey, anObject];
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-- (void)setObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key
+- (void)fm_setObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key
 {
     if (key) { // if obj be nil, it will call removeObjectForKey:
-        return [self setObject:obj forKeyedSubscript:key];
+        return [self fm_setObject:obj forKeyedSubscript:key];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], key %@ or object %@ can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd), key, obj];
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
 }
 
-+ (NSMutableDictionary *)dictionaryWithSharedKeySet:(id)keyset
++ (NSMutableDictionary *)fm_dictionaryWithSharedKeySet:(id)keyset
 {
     if (keyset) {
-        return [self dictionaryWithSharedKeySet:keyset];
+        return [self fm_dictionaryWithSharedKeySet:keyset];
     }
     
     NSString *msg = [NSString stringWithFormat:@"+[%@ %@], keySet can not be nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
     [[FMExceptionLog sharedInstance] reportExceptionWithMessage:msg extraDic:nil];
     return nil;
 }
-
 @end
