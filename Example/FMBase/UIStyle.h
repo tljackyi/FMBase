@@ -6,7 +6,7 @@
 //  Copyright © 2019 tljackyi. All rights reserved.
 //
 
-#import <FMBase/FMUIStyle.h>
+#import <FMBase/FMBase.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

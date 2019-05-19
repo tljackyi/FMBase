@@ -1,5 +1,5 @@
 PODS:
-  - FMBase (0.1.0):
+  - FMBase (0.0.1):
     - YYKit
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -17,9 +17,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FMBase: 2d1ccfc3573f1fa921339cd129ce75bfc86f4465
+  FMBase: 5ab5185daecf535a1d7f97b8a221a328b9f7aec1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
 PODFILE CHECKSUM: dc1430d630ba1a58d03cc2a86b39979f3d8e1225
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.6.2

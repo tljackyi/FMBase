@@ -28,6 +28,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow &quot;$(PRODUCT_NAME)&quot; to access your Camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow &quot;$(PRODUCT_NAME)&quot; to access your Photos</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

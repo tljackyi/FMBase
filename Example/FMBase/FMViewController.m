@@ -9,6 +9,7 @@
 #import "FMViewController.h"
 #import "FMLoadable.h"
 #import "UIStyle.h"
+#import <FMBase.h>
 
 @interface FooObject : NSObject
 @end
@@ -33,6 +34,10 @@ FMLoadableFunctionEnd(FooObject)
     [super viewDidLoad];
     
     [UIStyle style];
+    
+    [FMEasyPermission requestPhotoLibrayPermission:^(EasyAuthorityStatus status) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
