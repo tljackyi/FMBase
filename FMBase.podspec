@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FMBase'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'FMBase a dev toolkit'
   s.homepage         = 'https://github.com/tljackyi/FMBase'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
