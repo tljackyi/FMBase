@@ -14,5 +14,6 @@ Pod::Spec.new do |s|
 
   
   s.dependency 'YYKit'
+  s.dependency 'FCFileManager'
 
 end

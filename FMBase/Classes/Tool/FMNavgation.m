@@ -9,10 +9,8 @@
 
 @implementation FMNavgation
 
-static id instance = nil;
-
-+ (instancetype)shareInstance
-{
++ (instancetype)shareInstance {
+    static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];

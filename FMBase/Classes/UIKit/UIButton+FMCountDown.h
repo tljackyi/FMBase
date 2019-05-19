@@ -11,7 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (FMCountDown)
 
-- (void)startTime:(NSInteger)timeout waitBlock:(void(^)(NSInteger remainTime))waitBlock finishBlock:(void(^)(void))finishBlock;
+- (void)startTime:(NSInteger)timeout
+        waitBlock:(void(^)(NSInteger remainTime))waitBlock
+        finishBlock:(void(^)(void))finishBlock;
 
 @end
 

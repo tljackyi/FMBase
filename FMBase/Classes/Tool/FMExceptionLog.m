@@ -9,15 +9,13 @@
 
 @implementation FMExceptionLog
 
-+ (instancetype)sharedInstance
-{
-    static FMExceptionLog *sharedInstance = nil;
++ (instancetype)sharedInstance  {
+    static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
+        instance = [[self alloc] init];
     });
-    
-    return sharedInstance;
+    return instance;
 }
 
 - (void)reportExceptionWithMessage:(NSString *)message extraDic:(nullable NSDictionary *)extraDic

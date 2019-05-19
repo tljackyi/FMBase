@@ -101,4 +101,13 @@ CG_INLINE CGFloat NavigationBarHeight() {
     return 64 + TopLayoutGuideLength();
 }
 
+CG_INLINE CGFloat DegreesToRadian(CGFloat degrees)
+{
+    return M_PI*(degrees)/180.0;
+}
+CG_INLINE CGFloat RadianToDegrees(CGFloat radian)
+{
+    return 180.0*(radian)/M_PI;
+}
+
 #endif /* FMBaseFunctionsDef_h */
