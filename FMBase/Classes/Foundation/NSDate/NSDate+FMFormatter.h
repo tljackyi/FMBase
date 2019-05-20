@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 返回自定义时间格式
 - (NSString *)fm_dateFormatterWithFormat:(NSString *)format
-                                timeZone:(NSTimeZone *)timeZone
-                                  locale:(NSLocale *)locale;
+                                  locale:(NSLocale *)locale
+                                timeZone:(NSTimeZone *)timeZone;
 
 
 @end

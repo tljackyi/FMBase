@@ -110,4 +110,8 @@ CG_INLINE CGFloat RadianToDegrees(CGFloat radian)
     return 180.0*(radian)/M_PI;
 }
 
+CG_INLINE NSString * KLS(NSString *key, NSString *comment) {
+    return key;
+}
+
 #endif /* FMBaseFunctionsDef_h */

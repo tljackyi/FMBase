@@ -10,6 +10,7 @@
 #import "FMLoadable.h"
 #import "UIStyle.h"
 #import <FMBase.h>
+#import <FMBase/NSDate+FMFormatter.h>
 
 @interface FooObject : NSObject
 @end
@@ -38,6 +39,11 @@ FMLoadableFunctionEnd(FooObject)
     [FMEasyPermission requestPhotoLibrayPermission:^(EasyAuthorityStatus status) {
         
     }];
+    
+    NSString *dateStr = [[NSDate date] fm_dateFormatterWithFormat:@"YYYY.MM.DD"];
+    NSString *dateStr1 = [[NSDate date] fm_dateFormatterWithFormat:@"YYYY.MM.DD"];
+    NSString *dateStr2 = [[NSDate date] fm_dateFormatterWithFormat:@"YYYY.MM.DD"];
+
 }
 
 - (void)didReceiveMemoryWarning

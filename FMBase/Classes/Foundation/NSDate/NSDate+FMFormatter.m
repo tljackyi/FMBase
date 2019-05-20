@@ -12,13 +12,13 @@
 
 // 返回自定义时间格式
 - (NSString *)fm_dateFormatterWithFormat:(NSString *)format{
-     return [self fm_dateFormatterWithFormat:format timeZone:[NSTimeZone systemTimeZone] locale:[NSLocale autoupdatingCurrentLocale]];
+     return [self fm_dateFormatterWithFormat:format locale:[NSLocale autoupdatingCurrentLocale] timeZone:[NSTimeZone systemTimeZone]];
 }
 
 // 返回自定义时间格式
 - (NSString *)fm_dateFormatterWithFormat:(NSString *)format
                                 timeZone:(NSTimeZone *)timeZone{
-    return [self fm_dateFormatterWithFormat:format timeZone:timeZone locale:[NSLocale autoupdatingCurrentLocale]];
+      return [self fm_dateFormatterWithFormat:format locale:[NSLocale autoupdatingCurrentLocale] timeZone:timeZone];
 }
 
 // 返回自定义时间格式
