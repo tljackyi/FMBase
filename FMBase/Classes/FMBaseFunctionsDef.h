@@ -28,21 +28,7 @@ CG_INLINE void swizz_instanceMethod(Class cls, SEL orig_sel, SEL swizzle_sel) {
     }
 }
 
-CG_INLINE CGFloat KScreenScale() {
-    return [UIScreen mainScreen].scale;
-}
-CG_INLINE CGFloat KLineWidth() {
-    return 1.0 / [UIScreen mainScreen].scale;
-}
-CG_INLINE CGFloat KScreenHeight() {
-    return [[UIScreen mainScreen] bounds].size.height;
-}
-CG_INLINE CGSize KScreenSize() {
-    return [[UIScreen mainScreen] bounds].size;
-}
-CG_INLINE CGFloat KScreenWidth() {
-    return [[UIScreen mainScreen] bounds].size.width;
-}
+#pragma mark - iPhoneType
 CG_INLINE BOOL iPhone4() {
     return [UIScreen mainScreen].bounds.size.height == 480;
 }
@@ -82,12 +68,27 @@ CG_INLINE BOOL iPhonePlus() {
 CG_INLINE BOOL iPhoneX() {
     return [UIScreen mainScreen].bounds.size.height == 812;
 }
+
+#pragma mark - ScreenSize
+CG_INLINE CGFloat KScreenScale() {
+    return [UIScreen mainScreen].scale;
+}
+CG_INLINE CGFloat KLineWidth() {
+    return 1.0 / [UIScreen mainScreen].scale;
+}
+CG_INLINE CGFloat KScreenHeight() {
+    return [[UIScreen mainScreen] bounds].size.height;
+}
+CG_INLINE CGSize KScreenSize() {
+    return [[UIScreen mainScreen] bounds].size;
+}
+CG_INLINE CGFloat KScreenWidth() {
+    return [[UIScreen mainScreen] bounds].size.width;
+}
 CG_INLINE BOOL iPhoneXAndAbove() {
     CGRect rect = [UIScreen mainScreen].bounds;
     return CGRectGetHeight(rect) / CGRectGetWidth(rect) >= 2.0;
 }
-
-
 CG_INLINE CGFloat TopLayoutGuideLength() {
     return iPhoneXAndAbove() ? 24.0f : 0.0f;
 }
@@ -101,6 +102,7 @@ CG_INLINE CGFloat NavigationBarHeight() {
     return 64 + TopLayoutGuideLength();
 }
 
+#pragma mark - Radian
 CG_INLINE CGFloat DegreesToRadian(CGFloat degrees)
 {
     return M_PI*(degrees)/180.0;
@@ -109,6 +111,46 @@ CG_INLINE CGFloat RadianToDegrees(CGFloat radian)
 {
     return 180.0*(radian)/M_PI;
 }
+
+#pragma mark - Animation
+CG_INLINE void perform_view_animate_with_duration_delay_finished_block(NSTimeInterval duration, NSTimeInterval delay, void(^animation)(void), void(^completion)(BOOL finished)) {
+    [UIView animateWithDuration:duration delay:delay
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                     animations:animation
+                     completion:completion];
+}
+CG_INLINE void perform_view_animate_with_duration_finished_block(NSTimeInterval duration, void(^animation)(void), void(^completion)(BOOL finished)) {
+    perform_view_animate_with_duration_delay_finished_block(duration, 0, animation, completion);
+}
+CG_INLINE void perform_view_animate_with_finished_block(void(^animation)(void), void(^completion)(BOOL finished)) {
+    perform_view_animate_with_duration_finished_block(0.25, animation, completion);
+}
+CG_INLINE void perform_view_animate(void(^animation)(void)) {
+    perform_view_animate_with_duration_finished_block(0.25, animation, NULL);
+}
+CG_INLINE void perform_view_animate_with_duration(NSTimeInterval duration, void(^animation)(void)) {
+    perform_view_animate_with_duration_finished_block(duration, animation, NULL);
+}
+CG_INLINE void perform_damping_view_animate_with_duration_delay_finished_block(NSTimeInterval duration, NSTimeInterval delay, void(^animation)(void), void(^completion)(BOOL finished)) {
+    [UIView animateWithDuration:duration delay:delay
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:0.8
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn
+                     animations:animation completion:completion];
+}
+CG_INLINE void perform_damping_view_animate(void(^animation)(void)) {
+    perform_damping_view_animate_with_duration_delay_finished_block(0.25, 0, animation, NULL);
+}
+CG_INLINE void perform_damping_view_animate_with_duration(NSTimeInterval duration, void(^animation)(void)) {
+    perform_damping_view_animate_with_duration_delay_finished_block(duration, 0, animation, NULL);
+}
+CG_INLINE void perform_damping_view_animate_with_duration_delay(NSTimeInterval duration, NSTimeInterval delay, void(^animation)(void)) {
+    perform_damping_view_animate_with_duration_delay_finished_block(duration, delay, animation, NULL);
+}
+CG_INLINE void perform_damping_view_animate_with_duration_finished_block(NSTimeInterval duration, void(^animation)(void), void(^completion)(BOOL finished)) {
+    perform_damping_view_animate_with_duration_delay_finished_block(duration, 0, animation, completion);
+}
+
 
 CG_INLINE NSString * KLS(NSString *key, NSString *comment) {
     return key;
