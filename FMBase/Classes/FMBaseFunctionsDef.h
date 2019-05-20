@@ -102,6 +102,88 @@ CG_INLINE CGFloat NavigationBarHeight() {
     return 64 + TopLayoutGuideLength();
 }
 
+#pragma mark - Value Type
+CG_INLINE BOOL NHValidStringify(NSString *string) {
+    return ([string isKindOfClass:[NSString class]] && string.length > 0);
+}
+CG_INLINE NSString * NHStringify(NSString *string) {
+    return NHValidStringify(string) ? string : @"";
+}
+///判断数组存在并且数组的count>0
+CG_INLINE BOOL NHValidArrayify(NSArray *array) {
+    return (([array isKindOfClass:[NSArray class]] || [array isKindOfClass:[NSMutableArray class]]) && array.count > 0);
+}
+CG_INLINE BOOL NHValidDictionaryify(NSDictionary *dic) {
+    return (([dic isKindOfClass:[NSDictionary class]] || [dic isKindOfClass:[NSMutableDictionary class]]) && dic.count > 0);
+}
+/**
+验证number有效性
+
+@param number NSDecimalNumber对象
+@return 是否有效
+*/
+CG_INLINE BOOL NHValidDecimalNumber(NSDecimalNumber *number) {
+    return [number isKindOfClass: [NSDecimalNumber class]] && ![number isEqualToNumber: [NSDecimalNumber notANumber]];
+}
+/**
+ 验证货币金额合法性
+ 
+ @param number 货币金额Number
+ @return 是否合法
+ */
+CG_INLINE BOOL NHValidCurrencyNumber(NSDecimalNumber *number) {
+    return (NHValidDecimalNumber(number) &&
+            ![number isEqualToNumber: [NSDecimalNumber notANumber]] &&
+            [number compare: [NSDecimalNumber zero]] == NSOrderedDescending);
+}
+/**
+ 验证货币金额合法性
+ 
+ @param str 货币金额字符串
+ @return 是否合法
+ */
+CG_INLINE BOOL NHValidCurrencyNumberStr(NSString *str) {
+    NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString: NHStringify(str)];
+    return NHValidCurrencyNumber(number);
+}
+/**
+ 有效货币金额
+ 
+ @param str 货币金额字符串
+ @return NSDecimalNumber
+ */
+CG_INLINE NSDecimalNumber * NHSafeCurrencyDecimalNumber(NSString *str) {
+    NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString: NHStringify(str)];
+    if (!NHValidCurrencyNumber(number)) {
+        return [NSDecimalNumber zero];
+    }
+    return number;
+}
+
+/**
+ zero金额
+
+ @param number 货币金额
+ @return NSDecimalNumber
+ */
+CG_INLINE BOOL NHZeroCurrencyDecimalNumber(NSDecimalNumber *number) {
+    if (!NHValidDecimalNumber(number)) {
+        return YES;
+    }
+    return [number isKindOfClass: [NSDecimalNumber class]] &&
+    [number isEqualToNumber: [NSDecimalNumber zero]];
+}
+/**
+ zero金额
+ 
+ @param str 货币金额字符串
+ @return NSDecimalNumber
+ */
+CG_INLINE BOOL NHZeroCurrencyDecimalNumberStr(NSString *str) {
+    NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString: NHStringify(str)];
+    return NHZeroCurrencyDecimalNumber(number);
+}
+
 #pragma mark - Radian
 CG_INLINE CGFloat DegreesToRadian(CGFloat degrees)
 {
