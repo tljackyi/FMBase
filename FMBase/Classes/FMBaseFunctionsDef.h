@@ -101,6 +101,10 @@ CG_INLINE CGFloat StatusBarHeight() {
 CG_INLINE CGFloat NavigationBarHeight() {
     return 64 + TopLayoutGuideLength();
 }
+CG_INLINE CGFloat KAuToLayoutSize(CGFloat size){
+    return size * KScreenWidth() / 375;
+}
+
 
 #pragma mark - Value Type
 CG_INLINE BOOL NHValidStringify(NSString *string) {
