@@ -1,6 +1,6 @@
 PODS:
   - FCFileManager (1.0.20)
-  - FMBase (0.0.3):
+  - FMBase (0.0.4):
     - FCFileManager
     - YYKit
   - YYKit (1.0.9):
@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
-  FMBase: 046ec93abaaf80f9b452f0f327059dd90795412f
+  FMBase: afebd321f1f975660a3bdf29738c6b2fe7df768a
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
 PODFILE CHECKSUM: dc1430d630ba1a58d03cc2a86b39979f3d8e1225
