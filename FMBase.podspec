@@ -12,8 +12,10 @@ Pod::Spec.new do |s|
   s.source_files = 'FMBase/Classes/**/**/*.{h,m}'
   s.frameworks = "UIKit", "Foundation"
 
-  
   s.dependency 'YYKit'
+  s.dependency 'FCUUID'
+  s.dependency 'Tweaks'
   s.dependency 'FCFileManager'
+  s.dependency 'UICKeyChainStore'
 
 end
