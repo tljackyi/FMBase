@@ -2,7 +2,7 @@ PODS:
   - FCFileManager (1.0.20)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
-  - FMBase (0.0.4):
+  - FMBase (0.0.5):
     - FCFileManager
     - FCUUID
     - Tweaks
@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
-  FMBase: da1f4fefc05719c7b054ea01372628a3a5aebab4
+  FMBase: 53b67181e4e28539384ac0aefc31d452e562094a
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
