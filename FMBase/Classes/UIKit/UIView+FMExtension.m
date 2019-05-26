@@ -9,7 +9,7 @@
 
 @implementation UIView (FMExtension)
 
--(void)jk_shadowWithColor: (UIColor *)color
+-(void)fm_shadowWithColor: (UIColor *)color
                    offset: (CGSize)offset
                   opacity: (CGFloat)opacity
              cornerRadius: (CGFloat)cornerRadius

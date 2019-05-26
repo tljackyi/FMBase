@@ -9,8 +9,7 @@
 
 @implementation UIView (FMDraggable)
 
-
-- (void)setFM_panGesture:(UIPanGestureRecognizer*)panGesture
+- (void)setFm_panGesture:(UIPanGestureRecognizer*)panGesture
 {
     objc_setAssociatedObject(self, @selector(fm_panGesture), panGesture, OBJC_ASSOCIATION_RETAIN);
 }
@@ -20,7 +19,7 @@
     return objc_getAssociatedObject(self, @selector(fm_panGesture));
 }
 
-- (void)setFM_cagingArea:(CGRect)cagingArea
+- (void)setFm_cagingArea:(CGRect)cagingArea
 {
     if (CGRectEqualToRect(cagingArea, CGRectZero) ||
         CGRectContainsRect(cagingArea, self.frame)) {
@@ -35,7 +34,7 @@
     return [cagingAreaValue CGRectValue];
 }
 
-- (void)setFM_handle:(CGRect)handle
+- (void)setFm_handle:(CGRect)handle
 {
     CGRect relativeFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     if (CGRectContainsRect(relativeFrame, handle)) {
@@ -50,7 +49,7 @@
     return [handleValue CGRectValue];
 }
 
-- (void)setFM_shouldMoveAlongY:(BOOL)newShould
+- (void)setFm_shouldMoveAlongY:(BOOL)newShould
 {
     NSNumber *shouldMoveAlongYBool = [NSNumber numberWithBool:newShould];
     objc_setAssociatedObject(self, @selector(fm_shouldMoveAlongY), shouldMoveAlongYBool, OBJC_ASSOCIATION_RETAIN );
@@ -62,7 +61,7 @@
     return (moveAlongY) ? [moveAlongY boolValue] : YES;
 }
 
-- (void)setFM_shouldMoveAlongX:(BOOL)newShould
+- (void)setFm_shouldMoveAlongX:(BOOL)newShould
 {
     NSNumber *shouldMoveAlongXBool = [NSNumber numberWithBool:newShould];
     objc_setAssociatedObject(self, @selector(fm_shouldMoveAlongX), shouldMoveAlongXBool, OBJC_ASSOCIATION_RETAIN );
@@ -74,7 +73,7 @@
     return (moveAlongX) ? [moveAlongX boolValue] : YES;
 }
 
-- (void)setFM_draggingStartedBlock:(void (^)(void))draggingStartedBlock
+- (void)setFm_draggingStartedBlock:(void (^)(void))draggingStartedBlock
 {
     objc_setAssociatedObject(self, @selector(fm_draggingStartedBlock), draggingStartedBlock, OBJC_ASSOCIATION_RETAIN);
 }
@@ -84,7 +83,7 @@
     return objc_getAssociatedObject(self, @selector(fm_draggingStartedBlock));
 }
 
-- (void)setFM_draggingEndedBlock:(void (^)(void))draggingEndedBlock
+- (void)setFm_draggingEndedBlock:(void (^)(void))draggingEndedBlock
 {
     objc_setAssociatedObject(self, @selector(fm_draggingEndedBlock), draggingEndedBlock, OBJC_ASSOCIATION_RETAIN);
 }
@@ -170,7 +169,7 @@
     [self.fm_panGesture setMaximumNumberOfTouches:1];
     [self.fm_panGesture setMinimumNumberOfTouches:1];
     [self.fm_panGesture setCancelsTouchesInView:NO];
-    [self setFM_handle:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [self setFm_handle:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addGestureRecognizer:self.fm_panGesture];
 }
 
