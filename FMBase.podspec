@@ -15,7 +15,10 @@ Pod::Spec.new do |s|
   s.dependency 'YYKit'
   s.dependency 'FCUUID'
   s.dependency 'Tweaks'
+  s.dependency 'Masonry'
   s.dependency 'FCFileManager'
   s.dependency 'UICKeyChainStore'
+  s.dependency 'AFNetworking'
+  s.dependency 'ReactiveObjC'
 
 end
