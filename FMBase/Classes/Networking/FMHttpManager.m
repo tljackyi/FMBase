@@ -34,10 +34,16 @@ static dispatch_queue_t kHttpCompletionQueue() {
     return instance;
 }
 
+
 + (void)addRequest:(FMHttpRequest *)request
           callback:(void(^)(FMJson *json, NSError *error))callback {
     NSError *error = nil;
+    FMHttpConfig *config = [FMHttpManager sharedInstance].config;
+    Class reqClass = NSClassFromString(FMReqContentTypeToAFReq(config.contentType));
     AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
+    if ([reqClass respondsToSelector:@selector(serializer)]) {
+        requestSerializer = [reqClass performSelector:@selector(serializer)];
+    }
     NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod: request.methodStr
                                                                  URLString: request.urlStr
                                                                 parameters: request.params
@@ -55,8 +61,10 @@ static dispatch_queue_t kHttpCompletionQueue() {
                completionHandler: ^(NSURLResponse * _Nonnull response,
                                     id  _Nullable responseObject,
                                     NSError * _Nullable error) {
+                   
+                   FMHttpConfig *config = [FMHttpManager sharedInstance].config;
                    FMJson *json = [FMJson jsonWithData: responseObject];
-                   NSInteger code = [json integerValueForKey: @"err_code" defaultValue: 0];
+                   NSInteger code = [json integerValueForKey:config.codeKey defaultValue: 0];
                    if (code != 0) {
                        error = [NSError errorWithDomain: @"com.error.response"
                                                    code: code

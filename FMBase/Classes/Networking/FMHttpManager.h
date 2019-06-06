@@ -8,10 +8,15 @@
 #import <Foundation/Foundation.h>
 #import "FMHttpRequest.h"
 #import "FMJson.h"
+#import "FMHttpConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FMHttpManager : NSObject
+
++ (FMHttpManager *)sharedInstance;
+
+@property (nonatomic, strong) FMHttpConfig *config;
 
 + (void)addRequest:(FMHttpRequest *)request callback:(void(^)(FMJson *json, NSError *error))callback;
 + (void)cancelRequest:(FMHttpRequest *)request;
