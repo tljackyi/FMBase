@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (RACSignal *)rac_postWithUrlStr:(NSString *)urlStr
                            params:(NSDictionary *)params;
 
++ (RACSignal *)rac_putWithUrlStr:(NSString *)urlStr
+                          params:(NSDictionary *)params;
+
 @end
 
 NS_ASSUME_NONNULL_END

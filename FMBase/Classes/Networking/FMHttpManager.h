@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (FMHttpManager *)sharedInstance;
 
-@property (nonatomic, strong) FMHttpConfig *config;
+- (void)buildServerConfig:(void(^)(FMHttpConfig *config))builder;
 
 + (void)addRequest:(FMHttpRequest *)request callback:(void(^)(FMJson *json, NSError *error))callback;
 + (void)cancelRequest:(FMHttpRequest *)request;

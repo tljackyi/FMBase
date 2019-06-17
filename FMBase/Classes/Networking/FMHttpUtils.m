@@ -22,6 +22,11 @@
     return [self rac_requestWithUrlStr: urlStr method: @"POST" params: params];
 }
 
++ (RACSignal *)rac_putWithUrlStr:(NSString *)urlStr
+                          params:(NSDictionary *)params {
+    return [self rac_requestWithUrlStr: urlStr method: @"PUT" params: params];
+}
+
 + (RACSignal *)rac_requestWithUrlStr:(NSString *)urlStr
                               method:(NSString *)methodStr
                               params:(NSDictionary *)params {

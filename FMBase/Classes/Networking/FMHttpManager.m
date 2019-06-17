@@ -20,6 +20,7 @@ static dispatch_queue_t kHttpCompletionQueue() {
 @interface FMHttpManager ()
 
 @property (nonatomic, strong) AFURLSessionManager *sessionManager;
+@property (nonatomic, strong) FMHttpConfig *config;
 
 @end
 
@@ -34,6 +35,11 @@ static dispatch_queue_t kHttpCompletionQueue() {
     return instance;
 }
 
+- (void)buildServerConfig:(void(^)(FMHttpConfig *config))builder{
+    FMHttpConfig *config = [[FMHttpConfig alloc] init];
+    builder(config);
+    self.config = config;
+}
 
 + (void)addRequest:(FMHttpRequest *)request
           callback:(void(^)(FMJson *json, NSError *error))callback {
