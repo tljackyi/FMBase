@@ -192,7 +192,7 @@
             NSRange range = [self.scr_ranges[index] rangeValue];
             UIFont *font = [self attribute:NSFontAttributeName atIndex:range.length - 1 effectiveRange:nil];
             if (font) {
-                NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+                NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString yy_attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
                 [self appendAttributedString:attachmentAttributedString];
             }
         }
@@ -202,7 +202,7 @@
 
 - (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font))fm_yyinsertImage{
     return ^(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font) {
-        NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+        NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString yy_attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
         [self insertAttributedString:attachmentAttributedString
                              atIndex:index];
         NSMutableArray *ranges = [NSMutableArray array];
@@ -227,7 +227,7 @@
         NSMutableArray *ranges = [NSMutableArray array];
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
             NSRange range = [self.scr_ranges[index] rangeValue];
-            NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+            NSMutableAttributedString *attachmentAttributedString = [NSMutableAttributedString yy_attachmentStringWithContent:image contentMode:UIViewContentModeScaleToFill attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
             [self insertAttributedString:attachmentAttributedString
                                  atIndex:range.location];
             range.location += (attachmentAttributedString.length + 1);
