@@ -16,6 +16,8 @@
 #import "NSDate+FMFormatter.h"
 #import "NSDate+FMDisplayTime.h"
 #import "NSObject+FMMethodSwizzle.h"
+#import "NSString+FMEnDeCoding.h"
+#import "NSURL+FMExtension.h"
 
 #pragma mark - NSAttributedString
 #import "NSAttributedString+FMStringWithFormat.h"
@@ -60,5 +62,10 @@
 #import "FMEasyPermission+Notification.h"
 #import "FMEasyPermission+PhotoLibrary.h"
 #import "FMEasyPermission+Reminder.h"
+
+#pragma mark - URLRouter
+#import "FMURLRouter.h"
+#import "FMURLRouterInfo.h"
+#import "FMURLRoutable.h"
 
 #endif /* FMBase_h */
