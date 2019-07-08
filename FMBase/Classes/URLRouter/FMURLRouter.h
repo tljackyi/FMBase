@@ -14,10 +14,10 @@ typedef NS_ENUM(NSInteger, kOpenMethod){
     kOpenMethodPresent
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const kURLRouterScheme;
 extern NSString * const kURLRouterHost;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface FMURLRouter : NSObject
 

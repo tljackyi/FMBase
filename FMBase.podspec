@@ -23,5 +23,6 @@ Pod::Spec.new do |s|
   s.dependency 'UICKeyChainStore'
   s.dependency 'AFNetworking'
   s.dependency 'ReactiveObjC'
+  s.dependency 'SDWebImage', '~> 5.0'
 
 end

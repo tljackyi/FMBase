@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
         waitBlock:(void(^)(NSInteger remainTime))waitBlock
         finishBlock:(void(^)(void))finishBlock;
 
+- (void)fm_startTime:(NSInteger)timeout
+        waitBlock:(void(^)(NSInteger remainTime))waitBlock
+      finishBlock:(void(^)(void))finishBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

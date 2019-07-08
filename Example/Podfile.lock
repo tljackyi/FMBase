@@ -23,6 +23,7 @@ PODS:
     - FCUUID
     - Masonry
     - ReactiveObjC
+    - SDWebImage (~> 5.0)
     - Tweaks
     - UICKeyChainStore
     - YYCache
@@ -31,6 +32,9 @@ PODS:
     - YYText
   - Masonry (1.1.0)
   - ReactiveObjC (3.1.1)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
   - Tweaks (2.2.0)
   - UICKeyChainStore (2.1.2)
   - YYCache (1.0.4)
@@ -50,6 +54,7 @@ SPEC REPOS:
     - FCUUID
     - Masonry
     - ReactiveObjC
+    - SDWebImage
     - Tweaks
     - UICKeyChainStore
     - YYCache
@@ -65,9 +70,10 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
-  FMBase: 13a5c7a2f348baf909aef7ccbeb0017c7700b57b
+  FMBase: ff9e85b1258246e9a421d915d8e1818f5694ee01
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952

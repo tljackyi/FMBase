@@ -25,6 +25,12 @@ typedef NS_ENUM(NSUInteger, FMButtonEdgeInsetsStyle) {
  imageTitleSpace:(CGFloat)space
         forState:(UIControlState)state;
 
+- (void)fm_setImage:(UIImage *)image
+           title:(NSString*)title
+           style:(FMButtonEdgeInsetsStyle)style
+ imageTitleSpace:(CGFloat)space
+        forState:(UIControlState)state;
+
 @end
 
 NS_ASSUME_NONNULL_END

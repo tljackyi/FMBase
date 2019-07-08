@@ -14,6 +14,14 @@
            style:(FMButtonEdgeInsetsStyle)style
  imageTitleSpace:(CGFloat)space
         forState:(UIControlState)state{
+    [self fm_setImage:image title:title style:style imageTitleSpace:space forState:state];
+}
+
+- (void)fm_setImage:(UIImage *)image
+              title:(NSString*)title
+              style:(FMButtonEdgeInsetsStyle)style
+    imageTitleSpace:(CGFloat)space
+           forState:(UIControlState)state{
     
     [self setImage:image forState:state];
     [self setTitle:title forState:state];
@@ -74,7 +82,6 @@
     // 4. 赋值
     self.titleEdgeInsets = labelEdgeInsets;
     self.imageEdgeInsets = imageEdgeInsets;
-    
 }
 
 @end

@@ -30,6 +30,8 @@
 #import "UIColor+FMExtension.h"
 #import "UIColor+FMOpacity.h"
 #import "UIImage+FMColored.h"
+#import "UIImageView+FMWebCache.h"
+#import "UILabel+FMSize.h"
 #import "UITableView+FMDequeueReusable.h"
 #import "UITextField+FMInputLimit.h"
 #import "UIView+FMBlockGesture.h"
