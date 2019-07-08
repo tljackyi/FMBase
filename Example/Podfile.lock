@@ -17,7 +17,7 @@ PODS:
   - FCFileManager (1.0.20)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
-  - FMBase (0.1.0):
+  - FMBase (0.1.1):
     - AFNetworking
     - FCFileManager
     - FCUUID
@@ -70,7 +70,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
-  FMBase: ff9e85b1258246e9a421d915d8e1818f5694ee01
+  FMBase: 31575465d81914201d78dc505c1bb29b833010c9
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
