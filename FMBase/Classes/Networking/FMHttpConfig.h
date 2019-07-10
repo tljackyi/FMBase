@@ -25,6 +25,7 @@ CG_INLINE NSString* FMReqContentTypeToAFReq(FMHTTPReqContentType contentType){
 @interface FMHttpConfig : NSObject
 
 @property (nonatomic, copy) NSString *codeKey;
+@property (nonatomic, copy) NSString *errCodeKey;
 @property (nonatomic, assign) FMHTTPReqContentType contentType;
 
 @end

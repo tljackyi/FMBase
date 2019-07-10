@@ -74,7 +74,7 @@ static dispatch_queue_t kHttpCompletionQueue() {
                    if (code != 0) {
                        error = [NSError errorWithDomain: @"com.error.response"
                                                    code: code
-                                               userInfo: @{NSLocalizedDescriptionKey: [json stringValueForKey: @"err_msg"]}];
+                                               userInfo: @{NSLocalizedDescriptionKey: [json stringValueForKey: config.errCodeKey]}];
                    }
                    [self hookError: error];
                    callback(json, error);
