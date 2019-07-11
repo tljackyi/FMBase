@@ -1,0 +1,6 @@
+desc 'FastLane Pod Tool'
+lane :podpush do |options|
+    podspecName = options[:specName]
+    pod_lib_lint(allow_warnings: true)
+    pod_push(path: "#{podspecName}.podspec", repo: "SpecsKit", allow_warnings: true)
+end
