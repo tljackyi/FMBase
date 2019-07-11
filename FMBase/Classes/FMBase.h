@@ -38,6 +38,8 @@
 #import "UIView+FMDraggable.h"
 #import "UIView+FMExtension.h"
 #import "UIViewController+FMDestory.h"
+#import "UINavigationController+FMExtension.h"
+#import "UINavigationController+FMRoute.h"
 
 #pragma mark - Networking
 #import "FMHttpManager.h"
