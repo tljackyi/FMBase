@@ -1,6 +1,10 @@
 # OS X
 .DS_Store
 
+fastlane/report.xml
+fastlane/README.md
+
+
 # Xcode
 build/
 *.pbxuser
