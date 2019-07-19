@@ -18,13 +18,13 @@ typedef void(^FMLongPressGestureBlock)(UILongPressGestureRecognizer *lonePressGe
  Add tap gesture with block.
  @param handler block handler
  */
-- (void)fm_addTapGestureWithHandler:(FMTapGestureBlock)handler;
+- (UITapGestureRecognizer *)fm_addTapGestureWithHandler:(FMTapGestureBlock)handler;
 
 /**
  Add long press gusture with block.
  @param handler block handler
  */
-- (void)fm_addLongPressGestureWithHandler:(FMLongPressGestureBlock)handler;
+- (UILongPressGestureRecognizer *)fm_addLongPressGestureWithHandler:(FMLongPressGestureBlock)handler;
 
 @end
 

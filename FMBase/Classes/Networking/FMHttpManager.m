@@ -36,9 +36,12 @@ static dispatch_queue_t kHttpCompletionQueue() {
 }
 
 - (void)buildServerConfig:(void(^)(FMHttpConfig *config))builder{
-    FMHttpConfig *config = [[FMHttpConfig alloc] init];
-    builder(config);
-    self.config = config;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FMHttpConfig *config = [[FMHttpConfig alloc] init];
+        builder(config);
+        self.config = config;
+    });
 }
 
 + (void)addRequest:(FMHttpRequest *)request

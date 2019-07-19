@@ -17,7 +17,7 @@
         return nil;
     }
     NSMutableString * urlStr = [NSMutableString stringWithFormat: @"%@://%@/%@",
-                                kURLRouterScheme, kURLRouterHost, page];
+                                [FMURLRouter shareInstance].routerScheme, [FMURLRouter shareInstance].routerHost, page];
     urlStr = [[urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"`#%^{}\"[]|\\<>+"].invertedSet] mutableCopy];
     NSString *paramStr = [NSURL queryStringForRawDicParameters:params];
     if (NHValidStringify(paramStr)) {

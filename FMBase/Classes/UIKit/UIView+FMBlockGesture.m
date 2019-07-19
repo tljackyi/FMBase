@@ -15,7 +15,7 @@ static const void *kFMLongPressBlockKey = &kFMLongPressBlockKey;
 
 @implementation UIView (FMBlockGesture)
 
-- (void)fm_addTapGestureWithHandler:(FMTapGestureBlock)handler {
+- (UITapGestureRecognizer *)fm_addTapGestureWithHandler:(FMTapGestureBlock)handler {
     UITapGestureRecognizer *tapGesture =objc_getAssociatedObject(self, kFMTapGestureKey);
     if (!tapGesture) {
         tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(fm_tapAcion:)];
@@ -23,9 +23,10 @@ static const void *kFMLongPressBlockKey = &kFMLongPressBlockKey;
         objc_setAssociatedObject(self, kFMTapGestureKey, tapGesture, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     objc_setAssociatedObject(self, kFMTapGestureBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    return tapGesture;
 }
 
-- (void)fm_addLongPressGestureWithHandler:(FMLongPressGestureBlock)handler {
+- (UILongPressGestureRecognizer *)fm_addLongPressGestureWithHandler:(FMLongPressGestureBlock)handler {
     UILongPressGestureRecognizer *longPressGesture = objc_getAssociatedObject(self, kFMLongPressGestureKey);
     if (!longPressGesture) {
         longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressAction:)];
@@ -33,6 +34,7 @@ static const void *kFMLongPressBlockKey = &kFMLongPressBlockKey;
         objc_setAssociatedObject(self, kFMLongPressGestureKey, longPressGesture, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     objc_setAssociatedObject(self, kFMLongPressBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    return longPressGesture;
 }
 
 #pragma mark ------ < Event Response > ------

@@ -10,11 +10,15 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "FMURLRoutable.h"
 
-NSString * const kURLRouterScheme = @"fmbase";
-NSString * const kURLRouterHost = @"fmbase.com";
+@implementation FMURLRouterConfig
+
+@end
 
 @interface FMURLRouter ()
 
+@property (nonatomic, strong) FMURLRouterConfig *config;
+@property (nonatomic, copy, readwrite) NSString *routerScheme;
+@property (nonatomic, copy, readwrite) NSString *routerHost;
 @property (strong, nonatomic) NSMutableSet *routers;
 
 @end
@@ -37,6 +41,15 @@ NSString * const kURLRouterHost = @"fmbase.com";
     return self;
 }
 
+- (void)buildServerConfig:(void(^)(FMURLRouterConfig *config))builder{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FMURLRouterConfig *config = [[FMURLRouterConfig alloc] init];
+        builder(config);
+        self.config = config;
+    });
+}
+
 - (void)prepareRoutePool {
     Class *classes = NULL;
     Protocol *protocol = @protocol(FMURLRoutable);
@@ -57,8 +70,8 @@ NSString * const kURLRouterHost = @"fmbase.com";
 - (BOOL)canOpenURL:(NSURL *)url {
     NSString *scheme = [url.scheme lowercaseString];
     NSString *host = [url.host lowercaseString];
-    if (![scheme isEqualToString: kURLRouterScheme] ||
-        ![host isEqualToString: kURLRouterHost]) {
+    if (![scheme isEqualToString: [FMURLRouter shareInstance].routerScheme] ||
+        ![host isEqualToString: [FMURLRouter shareInstance].routerHost]) {
         return NO;
     }
     Class targetClazz = [self routableClassForURL: url].first;
@@ -107,6 +120,13 @@ NSString * const kURLRouterHost = @"fmbase.com";
 }
 
 #pragma mark - getter
+- (NSString *)routerScheme{
+    return self.config.routerScheme ? : @"fmbase";
+}
+
+- (NSString *)routerHost{
+    return self.config.routerHost ? : @"fmbase.com";
+}
 
 - (NSMutableSet *)routers {
     if (!_routers) {
