@@ -13,12 +13,14 @@ Pod::Spec.new do |s|
   s.frameworks = "UIKit", "Foundation"
 
   s.dependency 'YYModel'
+  s.dependency 'YYCategories'
   s.dependency 'YYText'
   s.dependency 'YYImage'
   s.dependency 'YYCache'
   s.dependency 'FCUUID'
   s.dependency 'Tweaks'
   s.dependency 'Masonry'
+  s.dependency 'GCDObjC'
   s.dependency 'FCFileManager'
   s.dependency 'UICKeyChainStore'
   s.dependency 'AFNetworking'
