@@ -47,7 +47,6 @@
 #import "FMHttpManager.h"
 #import "FMHttpRequest.h"
 #import "FMHttpUtils.h"
-#import "FMHttpConfig.h"
 
 #pragma mark - Tool
 #import "FMDateFormatterPool.h"

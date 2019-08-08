@@ -20,7 +20,8 @@ static dispatch_queue_t kHttpCompletionQueue() {
 @interface FMHttpManager ()
 
 @property (nonatomic, strong) AFURLSessionManager *sessionManager;
-@property (nonatomic, strong) FMHttpConfig *config;
+@property (nonatomic, copy) void(^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error);
+@property (nonatomic, copy) void(^responseConfig)(FMJson *json, NSError **error);
 
 @end
 
@@ -35,29 +36,31 @@ static dispatch_queue_t kHttpCompletionQueue() {
     return instance;
 }
 
-- (void)buildServerConfig:(void(^)(FMHttpConfig *config))builder{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        FMHttpConfig *config = [[FMHttpConfig alloc] init];
-        builder(config);
-        self.config = config;
-    });
++ (void)buildRequestConfig:(void(^)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error))config{
+    [FMHttpManager sharedInstance].requestConfig = config;
 }
+
++ (void)buildResponseConfig:(void(^)(FMJson *json, NSError **error))responseConfig{
+    [FMHttpManager sharedInstance].responseConfig = responseConfig;
+}
+
 
 + (void)addRequest:(FMHttpRequest *)request
           callback:(void(^)(FMJson *json, NSError *error))callback {
     NSError *error = nil;
-    FMHttpConfig *config = [FMHttpManager sharedInstance].config;
-    Class reqClass = NSClassFromString(FMReqContentTypeToAFReq(config.contentType));
-    AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
-    if ([reqClass respondsToSelector:@selector(serializer)]) {
-        requestSerializer = [reqClass performSelector:@selector(serializer)];
+    NSURLRequest *urlRequest = nil;
+    void (^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error) = [FMHttpManager sharedInstance].requestConfig;
+    if (requestConfig) {
+        requestConfig(request, &urlRequest, error);
     }
-    NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod: request.methodStr
-                                                                 URLString: request.urlStr
-                                                                parameters: request.params
-                                                                     error: &error];
     if (error) {
+        callback(nil, error);
+        return;
+    }
+    if (!urlRequest) {
+        error = [NSError errorWithDomain: @"com.error.request"
+                                    code: 404
+                                userInfo: @{NSLocalizedDescriptionKey:@"Not Found Request"}];
         callback(nil, error);
         return;
     }
@@ -70,16 +73,12 @@ static dispatch_queue_t kHttpCompletionQueue() {
                completionHandler: ^(NSURLResponse * _Nonnull response,
                                     id  _Nullable responseObject,
                                     NSError * _Nullable error) {
-                   
-                   FMHttpConfig *config = [FMHttpManager sharedInstance].config;
                    FMJson *json = [FMJson jsonWithData: responseObject];
-                   NSInteger code = [json integerValueForKey:config.codeKey defaultValue: 0];
-                   if (code != 0) {
-                       error = [NSError errorWithDomain: @"com.error.response"
-                                                   code: code
-                                               userInfo: @{NSLocalizedDescriptionKey: [json stringValueForKey: config.errCodeKey]}];
+                   void(^responseConfig)(FMJson *json, NSError **error)  = [FMHttpManager sharedInstance].responseConfig;
+                   if (responseConfig) {
+                       responseConfig(json, &error);
                    }
-                   [self hookError: error];
+                   [self hookError:error];
                    callback(json, error);
                }];
     request.identifier = [@(task.taskIdentifier) stringValue];

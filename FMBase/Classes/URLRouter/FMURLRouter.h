@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
-- (void)buildServerConfig:(void(^)(FMURLRouterConfig *config))builder;
+- (void)buildRouterConfig:(void(^)(FMURLRouterConfig *config))builder;
 - (BOOL)canOpenURL:(NSURL *)url;
 - (FMURLRouterInfo *)parseRouterForURL:(NSURL *)url;
 - (void)openURL:(NSURL *)url model:(kOpenMethod)model inNavi:(UINavigationController *)fromVC;
