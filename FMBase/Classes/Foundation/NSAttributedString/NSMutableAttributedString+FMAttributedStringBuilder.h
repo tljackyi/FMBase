@@ -90,10 +90,19 @@ NS_ASSUME_NONNULL_BEGIN
 // 下划线颜色
 - (NSMutableAttributedString *(^)(UIColor *color))fm_underlineColor;
 
+// 中划线
+- (NSMutableAttributedString *(^)(NSUnderlineStyle))fm_strikethroughStyle;
+
+// 中划线颜色
+- (NSMutableAttributedString *(^)(UIColor *))fm_strikethroughColor;
+
 // 行间距
 - (NSMutableAttributedString *(^)(CGFloat spacing))fm_lineSpacing;
 
-//行高 http://pingguohe.net/2018/03/29/how-to-implement-line-height.html
+// 基线偏移值
+- (NSMutableAttributedString *(^)(CGFloat offset))fm_baselineOffset;
+
+// 行高 http://pingguohe.net/2018/03/29/how-to-implement-line-height.html
 - (NSMutableAttributedString *(^)(CGFloat lineHeight))fm_lineHeight;
 
 // YYLabel 行高

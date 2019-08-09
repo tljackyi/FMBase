@@ -326,11 +326,32 @@
     };
 }
 
+- (NSMutableAttributedString *(^)(NSUnderlineStyle))fm_strikethroughStyle {
+    return ^(NSUnderlineStyle style) {
+        [self fm_addAttribute:NSStrikethroughStyleAttributeName value:@(style)];
+        return self;
+    };
+}
+
+- (NSMutableAttributedString *(^)(UIColor *))fm_strikethroughColor {
+    return ^(UIColor * color) {
+        [self fm_addAttribute:NSStrikethroughColorAttributeName value:color];
+        return self;
+    };
+}
+
 - (NSMutableAttributedString *(^)(CGFloat))fm_lineSpacing {
     return ^(CGFloat lineSpacing) {
         [self fm_configParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
             paragraphStyle.lineSpacing = lineSpacing;
         }];
+        return self;
+    };
+}
+
+- (NSMutableAttributedString *(^)(CGFloat offset))fm_baselineOffset{
+    return ^(CGFloat offset) {
+        [self fm_addAttribute:NSBaselineOffsetAttributeName value:@(offset)];
         return self;
     };
 }

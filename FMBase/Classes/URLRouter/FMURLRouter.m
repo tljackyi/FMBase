@@ -41,12 +41,12 @@
     return self;
 }
 
-- (void)buildRouterConfig:(void(^)(FMURLRouterConfig *config))builder{
++ (void)buildRouterConfig:(void(^)(FMURLRouterConfig *config))builder{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         FMURLRouterConfig *config = [[FMURLRouterConfig alloc] init];
         builder(config);
-        self.config = config;
+        [FMURLRouter shareInstance].config = config;
     });
 }
 
