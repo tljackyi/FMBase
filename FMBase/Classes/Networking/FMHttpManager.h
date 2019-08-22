@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (FMHttpManager *)sharedInstance;
 
-+ (void)buildRequestConfig:(void(^)(FMHttpRequest *requset, NSURLRequest * _Nonnull __autoreleasing * _Nullable urlRequest, NSError *error))config;
-+ (void)buildResponseConfig:(void(^)(FMJson *json, NSError * _Nullable __autoreleasing *  _Nullable error))config;
++ (void)buildRequestConfig:(void(^)(FMHttpRequest *requset, NSURLRequest * _Nonnull __autoreleasing * _Nullable urlRequest, NSError * _Nullable __autoreleasing *  _Nullable error))config;
++ (void)buildResponseConfig:(void(^)(NSURLResponse * _Nonnull response, FMJson *json, NSError * _Nullable __autoreleasing *  _Nullable error))config;
 
 + (void)addRequest:(FMHttpRequest *)request callback:(void(^)(FMJson *json, NSError *error))callback;
 + (void)cancelRequest:(FMHttpRequest *)request;

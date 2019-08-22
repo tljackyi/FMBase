@@ -20,8 +20,8 @@ static dispatch_queue_t kHttpCompletionQueue() {
 @interface FMHttpManager ()
 
 @property (nonatomic, strong) AFURLSessionManager *sessionManager;
-@property (nonatomic, copy) void(^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error);
-@property (nonatomic, copy) void(^responseConfig)(FMJson *json, NSError **error);
+@property (nonatomic, copy) void(^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError **error);
+@property (nonatomic, copy) void(^responseConfig)(NSURLResponse * _Nonnull response, FMJson *json, NSError **error);
 
 @end
 
@@ -36,29 +36,22 @@ static dispatch_queue_t kHttpCompletionQueue() {
     return instance;
 }
 
-+ (void)buildRequestConfig:(void(^)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error))config{
++ (void)buildRequestConfig:(void(^)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError **error))config{
     [FMHttpManager sharedInstance].requestConfig = config;
 }
 
-+ (void)buildResponseConfig:(void(^)(FMJson *json, NSError **error))responseConfig{
++ (void)buildResponseConfig:(void(^)(NSURLResponse * _Nonnull response, FMJson *json, NSError **error))responseConfig{
     [FMHttpManager sharedInstance].responseConfig = responseConfig;
 }
-
 
 + (void)addRequest:(FMHttpRequest *)request
           callback:(void(^)(FMJson *json, NSError *error))callback {
     NSError *error = nil;
     NSURLRequest *urlRequest = nil;
-    void (^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError *error) = [FMHttpManager sharedInstance].requestConfig;
-    if (requestConfig) {
-        requestConfig(request, &urlRequest, error);
-    }
-    if (error) {
-        callback(nil, error);
-        return;
-    }
-    if (!urlRequest) {
-        error = [NSError errorWithDomain: @"com.error.request"
+    void (^requestConfig)(FMHttpRequest *requset, NSURLRequest **urlRequest, NSError **error) = [FMHttpManager sharedInstance].requestConfig;
+    requestConfig ? requestConfig(request, &urlRequest, &error) : nil;
+    if (!urlRequest || error) {
+        error = error ? : [NSError errorWithDomain: @"com.error.request"
                                     code: 404
                                 userInfo: @{NSLocalizedDescriptionKey:@"Not Found Request"}];
         callback(nil, error);
@@ -74,10 +67,8 @@ static dispatch_queue_t kHttpCompletionQueue() {
                                     id  _Nullable responseObject,
                                     NSError * _Nullable error) {
                    FMJson *json = [FMJson jsonWithData: responseObject];
-                   void(^responseConfig)(FMJson *json, NSError **error)  = [FMHttpManager sharedInstance].responseConfig;
-                   if (responseConfig) {
-                       responseConfig(json, &error);
-                   }
+                   void(^responseConfig)(NSURLResponse * _Nonnull response, FMJson *json, NSError **error)  = [FMHttpManager sharedInstance].responseConfig;
+                   responseConfig ? responseConfig(response, json, &error) : nil;
                    [self hookError:error];
                    callback(json, error);
                }];
